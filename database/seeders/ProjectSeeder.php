@@ -13,7 +13,7 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        $projects = config('db.posts');
+        $projects = config('db.projects');
         foreach ($projects as $project) {
             $newPost = new Project();
             $newPost->image= $project['image'];
