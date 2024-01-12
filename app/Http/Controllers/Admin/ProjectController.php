@@ -24,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projecs.create');
     }
 
     /**
@@ -32,7 +32,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $formData = $request->validated();
+        //Creo slug
+        $slug = Str::slug($formData['title'], '-');
+        //add slug to formData
+        $formData['slug'] = $slug;
+        //prendiamo  l'id dell'utente corrente (LA PERSONA CHE STA SALVANDO IL POST)
+        $UserId = auth()->id();
+
+        //aggiungiamo l'id dell'utente
+        $formData['user_id'] = $UserId;
+        $project = Project::create($formData);
+        return redirect()->route('admin.posts.show', $project->id);
     }
 
     /**
@@ -48,7 +59,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -56,7 +67,15 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $formData = $request->validated();
+        $slug = Str::slug($formData['title'], '-');
+        $formData['slug'] = $slug;
+
+
+        $formData['user_id'] = $project->user_id;
+
+        $project->update($formData);
+        return to_route('admin.projects.show', $project->id);
     }
 
     /**
@@ -64,6 +83,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+
+        $project->delete();
+        return to_route('admin.projecs.index')->with('message', "$project->title eliminato con successo");
     }
 }
