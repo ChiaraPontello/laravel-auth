@@ -7,7 +7,8 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class ProjectController extends Controller
 {
     /**
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projecs.create');
+        return view('admin.projects.create');
     }
 
     /**
@@ -38,12 +39,17 @@ class ProjectController extends Controller
         //add slug to formData
         $formData['slug'] = $slug;
         //prendiamo  l'id dell'utente corrente (LA PERSONA CHE STA SALVANDO IL POST)
-        $UserId = auth()->id();
+        $userId = Auth::id();
 
         //aggiungiamo l'id dell'utente
-        $formData['user_id'] = $UserId;
+        $formData['user_id'] = $userId;
+        if ($request->hasFile('image')) {
+            $path = Storage::put('images', $request->image);
+            $formData['image'] = $path;
+        }
+
         $project = Project::create($formData);
-        return redirect()->route('admin.posts.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->id);
     }
 
     /**
