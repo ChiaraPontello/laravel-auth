@@ -79,7 +79,13 @@ class ProjectController extends Controller
 
         //aggiungiamo l'id dell'utente proprietario del post
         $formData['user_id'] = $project->user_id;
-
+        if ($request->hasFile('image')) {
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+            $path = Storage::put('images',$formData['image']);
+            $formData['image'] = $path;
+        }
         $project->update($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
