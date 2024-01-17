@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Project;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 class ProjectSeeder extends Seeder
 {
     /**
@@ -15,14 +16,14 @@ class ProjectSeeder extends Seeder
     {
         $projects = config('db.projects');
         foreach ($projects as $project) {
-            $newPost = new Project();
-            $newPost->image= $project['image'];
-            $newPost->title = $project['title'];
-            $newPost->body =$project['body'];
-            $newPost->user_id = 1;
-            $newPost->slug =Str::slug($project['title'], '-');
+            $newProject = new Project();
+            $newProject->image= $project['image'];
+            $newProject->title = $project['title'];
+            $newProject->body =$project['body'];
+            $newProject->user_id = 1;
+            $newProject->slug =Str::slug($project['title'], '-');
 
-            $newPost->save();
+            $newProject->save();
         }
     }
 }
