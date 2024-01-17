@@ -77,11 +77,11 @@ class ProjectController extends Controller
         $slug = Str::slug($formData['title'], '-');
         $formData['slug'] = $slug;
 
-
+        //aggiungiamo l'id dell'utente proprietario del post
         $formData['user_id'] = $project->user_id;
 
         $project->update($formData);
-        return to_route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->id);
     }
 
     /**
