@@ -24,7 +24,10 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
+        <div class="d-flex">
+            <div class="media me-4">
+                <img width="150" src="{{asset('storage/' . $progect->image)}}" alt="{{$project->title}}">
+            </div>
         <div class="mb-3">
             <label for="image">Image</label>
             <input type="file"  class="form-control @error('image') is-invalid @enderror" name="image" id="image" value="{{old('image', $project->image)}}"
@@ -33,9 +36,11 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
+    </div>
+    <div class="mt-3">
         <button type="submit" class="btn btn-success">Save</button>
         <button type="reset" class="btn btn-primary">Reset</button>
+    </div>
     </form>
     </section>
 @endsection
