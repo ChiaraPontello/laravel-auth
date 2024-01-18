@@ -26,7 +26,7 @@
         </div>
         <div class="d-flex">
             <div class="media me-4">
-                <img width="150" src="{{asset('storage/' . $progect->image)}}" alt="{{$project->title}}">
+                <img width="150" src="{{asset('storage/' . $project->image)}}" alt="{{$project->title}}">
             </div>
         <div class="mb-3">
             <label for="image">Image</label>
