@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 @section('content')
     <section class="container">
         <h1>Project List</h1>
@@ -22,13 +22,13 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($progects as $progect)
+        @foreach($projects as $project)
                 <tr>
-                    <th scope="row">{{$progect->id}}</th>
-                    <td><a href="{{route('admin.projects.show', $progect->slug)}}" title="View Project">{{$project->title}}</a></td>
+                    <th scope="row">{{$project->id}}</th>
+                    <td><a href="{{route('admin.projects.show', $project->slug)}}" title="View Project">{{$project->title}}</a></td>
                     <td>{{Str::limit($project->body,100)}}</td>
 
-                    <td><a class="link-secondary" href="{{route('admin.projects.edit', $progect->slug)}}" title="Edit Project"><i class="fa-solid fa-pen"></i></a></td>
+                    <td><a class="link-secondary" href="{{route('admin.projects.edit', $project->slug)}}" title="Edit Project"><i class="fa-solid fa-pen"></i></a></td>
                     <td>
                         <form action="{{route('admin.projects.destroy', $project->slug)}}" method="POST">
                         @csrf

@@ -24,6 +24,11 @@
             @enderror
         </div>
 
+        <div class="d-flex">
+            <div class="me-3">
+                <img id="previewImage" width="100" src="https://via.placeholder.com/300x200">
+            </div>
+
         <div class="mb-3">
             <label for="image">Image</label>
             <input type="file"  class="form-control @error('image') is-invalid @enderror" name="image" id="image" value="{{old('image')}}"
@@ -32,7 +37,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
+        </div>
         <button type="submit" class="btn btn-success">Save</button>
         <button type="reset" class="btn btn-primary">Reset</button>
     </form>
